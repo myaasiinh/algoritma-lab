@@ -1,0 +1,39 @@
+pseudocode
+
+import library c++
+
+fungsi utama () {
+
+
+    ///inialisasi variable dan tipe data integer
+	p, k, d, h
+
+	tampilkan "apakah mempunyai kode"
+
+    masukan variable p
+
+    jika (variable p sama dengan 1 ) {
+
+        tampilkan "masukan kode"
+
+        masukan variable k
+
+        jika ( variable k sama dengan 123 ) {
+
+            tampilkan "dapat diskon 15%"
+            masukan variable d sama dengan 15
+            masukan variable h sama dengan 30000 dikurangi (30000 dikali 15 ) dibagi 100
+            tampilkan "harga setelah diskon adalah" variable h
+        } jika tidak {
+
+            tampilkan "tidak dapat diskon, kode salah"
+
+        }
+    } jika tidak {
+
+        tampilkan "harga normal"
+
+    }
+
+    selesai
+}

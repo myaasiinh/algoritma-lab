@@ -1,12 +1,11 @@
-
 #include <iostream>
 #include <string.h>
 
 using namespace std;
 
 struct nilaiMatKul {
-  char nim[10];
-  char nama[50];
+  string nim;
+  string nama;
   float nilai;
 };
 
@@ -23,32 +22,25 @@ void createEmpty(queue *Q){
 }
 
 int isEmpty(queue Q){
-  int hasil = 0;
-  if(Q.first == -1){
-    hasil = 1;
-  }
-  return hasil;
+  return Q.first == -1;
 }
 
 int isFull(queue Q){
-  int hasil = 0;
-  if(Q.last == 9){
-    hasil = 1;
-  }
-  return hasil;
+  return Q.last == 9 && Q.first != -1;
 }
 
-void add(char nim[], char nama[], float nilai, queue *Q){
-  if(isEmpty(*Q) == 1){
+void add(string nim, string nama, float nilai, queue *Q){
+  if(isEmpty(*Q)){
     (*Q).first = 0;
     (*Q).last = 0;
   }else{
     (*Q).last++;
   }
-  strcpy((*Q).data[(*Q).last].nim, nim);
-  strcpy((*Q).data[(*Q).last].nama, nama);
+  (*Q).data[(*Q).last].nim = nim;
+  (*Q).data[(*Q).last].nama = nama;
   (*Q).data[(*Q).last].nilai = nilai;
 }
+
 
 void del(queue *Q){
   int i;
@@ -59,12 +51,15 @@ void del(queue *Q){
       (*Q).data[i] = (*Q).data[i+1];
     }
     (*Q).last--;
+    (*Q).first++;
   }
 }
 
 void printQueue(queue Q){
-  if(isEmpty(Q) == false){
+  if(Q.first != -1){
     for(int i = Q.first; i <= Q.last; i++){
+      cout <<"---Isi Queue---" << endl;
+      cout << "Index : " << i << endl;
       cout << "NIM : " << Q.data[i].nim << endl;
       cout << "Nama : " << Q.data[i].nama << endl;
       cout << "Nilai : " << Q.data[i].nilai << endl;
@@ -77,33 +72,22 @@ void printQueue(queue Q){
 
 int main(){
   queue Q;
-  int pilih;
-  char nim[10];
-  char nama[50];
-  float nilai;
-  do{
-    cout << "1. Tambah Data" << endl;
-    cout << "2. Hapus Data" << endl;
-    cout << "3. Tampilkan Data" << endl;
-    cout << "4. Keluar" << endl;
-    cout << "Pilih : ";
-    cin >> pilih;
-    switch(pilih){
-      case 1:
-        cout << "NIM : ";
-        cin >> nim;
-        cout << "Nama : ";
-        cin >> nama;
-        cout << "Nilai : ";
-        cin >> nilai;
-        add(nim, nama, nilai, &Q);
-        break;
-      case 2:
-        del(&Q);
-        break;
-      case 3:
-        printQueue(Q);
-        break;
-    }
-  }while(pilih != 4);
+  createEmpty(&Q);
+  printQueue(Q);
+
+  cout<<"------------------------" << endl;
+  add("13517001", "Rangga", 64.67, &Q);
+  add("13517002", "Anggy", 75.11, &Q);
+  add("13517003", "Intan", 84.63, &Q);
+  printQueue(Q);
+
+  cout<<"------------------------" << endl;
+  del(&Q);
+  del(&Q);
+
+
+  printQueue(Q);
+  
+  return 0;
+
 }

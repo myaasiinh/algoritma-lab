@@ -2,6 +2,7 @@
 #include <cstring>
 #include <iomanip>
 using namespace std;
+
 struct DAT
 {
     int id;
@@ -12,13 +13,13 @@ struct DAT
     double salary;
     char tele_no[15];
 };
+
 struct NODE
 {
     DAT data;
     NODE *N;
     NODE*P;
-    NODE(const int i , const char *f, const char *m, const char 
-    *l, const char *ad, const double s, const char *tel)
+    NODE(const int i , const char *f, const char *m, const char *l, const char *ad, const double s, const char *tel)
     {
         data.id = i;
         strcpy(data.fname,f);
@@ -31,16 +32,17 @@ struct NODE
         P = NULL;
     }
 };
+
 class StackLinkedList
 {
     private:
-    NODE *front;
+        NODE *front;
     public:
-    StackLinkedList(){front = NULL;}
-    ~StackLinkedList(){destroyList();}
-    void push(NODE *);
-    NODE* pop();
-    void destroyList();
+        StackLinkedList(){front = NULL;}
+        ~StackLinkedList(){destroyList();}
+        void push(NODE *);
+        NODE* pop();
+        void destroyList();
 };
 
 void StackLinkedList::push(NODE *n)
@@ -56,22 +58,23 @@ void StackLinkedList::push(NODE *n)
         front = n;
     }
 }
+
 NODE* StackLinkedList::pop()
 {
     NODE *temp;
-    if( front == NULL )//no nodes
+    if(front == NULL) //no nodes
         return NULL;
-        else if(front->N == NULL)//there is only one node
+    else if(front->N == NULL) //there is only one node
     {
-        NODE * temp2 = front;
+        NODE *temp2 = front;
         temp = temp2;
         front = NULL;
         delete temp2;
         return temp;
     }
-    else//there are more than one node
+    else //there are more than one node
     {
-        NODE * temp2 = front;
+        NODE *temp2 = front;
         temp = temp2;
         front = front->N;
         front->P = NULL;
@@ -79,6 +82,7 @@ NODE* StackLinkedList::pop()
         return temp;
     }
 }
+
 void StackLinkedList::destroyList()
 {
     while(front != NULL)
@@ -91,7 +95,7 @@ void StackLinkedList::destroyList()
 
 void disp(NODE *N)
 {
-    if( N == NULL )
+    if(N == NULL)
     {
         cout << "\nStack is Empty!!!" << endl;
     }
@@ -102,24 +106,42 @@ void disp(NODE *N)
         cout << N->data.mname << " ";
         cout << N->data.lname << endl;
         cout << "Address : " << N->data.address << endl;
-        cout << "Salary : " << setprecision(15) << N->data.salary << endl;
-        cout << "Tele_no : " << N->data.tele_no<< endl << endl;
+        cout << "Salary : " << setprecision(15) << N->data .salary << endl;
+        cout << "Telephone No. : " << N->data.tele_no << endl;
     }
 }
+
 int main()
 {
-    cout<<"Nama : Muhammad  Yaasiin Hidayatulloh \n";
-    cout<<"NIM : 32602200107 \n\n";
-    StackLinkedList *Stack = new StackLinkedList();
-    NODE No1(101,"Anggy","Eka","P","Semarang 120",7851243.9475,"07502334121");
-    NODE No2(102,"Wa Ode","Kanartia","Ningsi","Timor leste 121",5681125.9457,"07507534127");
-    NODE No3(103,"Fatimah","Nurul","Intan","Irian Jaya 123",2344003.48345,"075078654129");
-    Stack->push(&No1);
-    Stack->push(&No2);
-    Stack->push(&No3);
-    disp(Stack->pop());
-    disp(Stack->pop());
-    disp(Stack->pop());
-    delete Stack;
+    StackLinkedList S;
+    NODE *N;
+    int i;
+    char f[20], m[20], l[20], ad[80], tel[15];
+    double s;
+    for(i = 0; i < 3; i++)
+    {
+        cout << "Enter Id No. : ";
+        cin >> i;
+        cout << "Enter First Name : ";
+        cin >> f;
+        cout << "Enter Middle Name : ";
+        cin >> m;
+        cout << "Enter Last Name : ";
+        cin >> l;
+        cout << "Enter Address : ";
+        cin >> ad;
+        cout << "Enter Salary : ";
+        cin >> s;
+        cout << "Enter Telephone No. : ";
+        cin >> tel;
+        N = new NODE(i,f,m,l,ad,s,tel);
+        S.push(N);
+    }
+    cout << "\n\n";
+    for(i = 0; i < 3; i++)
+    {
+        N = S.pop();
+        disp(N);
+    }
     return 0;
 }
